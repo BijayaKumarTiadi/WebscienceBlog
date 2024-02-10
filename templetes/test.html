@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Always On Top Display</title>
+  <style>
+    /* Style for the always on top display */
+    #alwaysOnTop {
+      position: fixed; /* or position: absolute; */
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f2f2f2;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 9999; /* Make sure it's above other elements */
+    }
+
+    /* Additional styles for the content */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Optional styles for the rest of the page */
+    main {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Always on top display -->
+<div id="alwaysOnTop">
+  <p>This is always on top content.</p>
+</div>
+
+<!-- Rest of the page content -->
+<main>
+  <h1>Your Page Content Goes Here</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+</main>
+
+</body>
+</html>
+<div id="carouselExampleCaptions"class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="..." class="d-block w-100" alt="...">
+      </div>
+      {% for cat in cats %}
+      <div class="carousel-item ">
+        <div class="card">
+          <div class="img-wrapper"><img src="media/{{cat.image}}" class="d-block w-100" alt="..."> </div>
+          <div class="card-body">
+            <h5 class="card-title">{{cat.title}}</h5>
+            <p class="card-text">{{cat.description}}</p>
+            <a href="/{{cat.url}}" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  
+    </div>
+  
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  
+
+  index cpoied
+
+
+  {% load static %}
+<!doctype html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand mb-0 h1" href="/">Web Science</a>
+  <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Category
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for cat in cats %}
+          <a class="dropdown-item" href="#">{{cat.title}}</a>
+          <div class="dropdown-divider"></div>
+          {% endfor %}
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <button class="btn btn-outline-success my-2 my-sm-10" type="submit">Sign Up / Login</button>
+    <!-- <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+  </div>
+</nav>
+
+
+<div class="container-fluid ">
+  <marquee behavior="scroll" scrollamount=10 style="font-size: 20;" direction="left">
+    Web Science is the Hand Written Tech , Entertainment , Bussiness , News etc Blogs which were verified and
+    written by out best admins and staffs. We hope you will get knowledge and share to all .
+  </marquee>
+
+</div>
+
+<body>
+
+</body>
+<div class="container">
+  <div class="row">
+    <img src="" class="img-fluid" alt="Responsive image">
+  </div>
+</div>
+
+<!-- {% for cat in cats %}
+    <div class="carousel-item ">
+      <div class="card">
+        <div class="img-wrapper"><img src="media/{{cat.image}}" class="d-block w-100" alt="..."> </div>
+        <div class="card-body">
+          <h5 class="card-title">{{cat.title}}</h5>
+          <p class="card-text">{{cat.description}}</p>
+          <a href="/{{cat.url}}" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %} -->
+
+</body>
+
+<div id="datetime"></div>
+
+
+<script>
+  function updateDateTime() {
+    var dt = new Date();
+    var options = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    var formattedDateTime = dt.toLocaleDateString('en-US', options);
+    document.getElementById("datetime").innerHTML = formattedDateTime;
+  }
+
+  // Update the date and time every second
+  setInterval(updateDateTime, 1000);
+
+  // Initial call to display date and time immediately
+  updateDateTime();
+</script>
+{% include 'footer.html' %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{% static 'js/base.js' %}" crossorigin="anonymous"></script>
+
+</html>
+to view all the view of each category
+<ul>
+  {% for category in top_categories %}
+    <li>{{ category.title }} - Total Views: {{ category.total_views }}</li>
+  {% endfor %}
+</ul>
+
+quick loaded
+<!-- Before lazy loading -->
+<img src="path/to/your/image.jpg" alt="Description">
+
+<!-- After lazy loading -->
+<img data-src="path/to/your/image.jpg" alt="Description" loading="lazy">
+
+
+<!-- Before lazy loading -->
+<script src="path/to/your/script.js"></script>
+
+<!-- After lazy loading -->
+<script src="path/to/your/script.js" defer></script>
+
+
+<!-- Your existing post content -->
+
+<!-- Lazy load related posts using AJAX -->
+<div id="related-posts-container"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Use AJAX to fetch and load related posts when the page is ready
+    fetch('/path/to/related/posts/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('related-posts-container').innerHTML = data.html;
+        });
+});
+</script>

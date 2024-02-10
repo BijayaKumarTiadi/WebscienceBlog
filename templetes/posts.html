@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="/">{{ post.title }}</a>
+<span>{{post.views}}</span>
+<h1>
+<span>
+    The estimated_reading_time :
+    {{post.reading_time}}
+
+</span>
+</h1>
+<div>
+  {% for item in hierarchy %}
+      <a href="{{ item.url }}">{{ item.name }}</a> /
+  {% endfor %}
+</div>
+<!-- post_detail.html -->
+<h1>{{ post.title }}</h1>
+<p>{{ post.content | safe}}</p>
+<!-- other post details -->
+
+
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+
+    
+{% endblock %}

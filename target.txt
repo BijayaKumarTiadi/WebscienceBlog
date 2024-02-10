@@ -1,0 +1,33 @@
+page called all the posts and pagination
+view count on models
+reading time
+
+show all post by tag--url
+show all post by category --- url
+show most viewed --url by view count
+Trending tags will be the tag which is used maximum time
+Dropdown category will be which categories is used the most.
+create comment section
+// if possible add share count----doubtfull
+show all posts category wise like in  news category show all the posts related to news
+
+
+What should in the main post section |
+    Latest Blog
+    Latest Trending post
+    (At Side :- )
+    Top one is the 2nd Latest
+    Sides should be the Latest blog on every category
+
+
+
+In middle section :
+All the latest Blogs with categories with most views
+
+Custom Error pages
+use caching
+
+fetch all post by author
+
+
+our gallery should be uploaded to model or may be used by fetching social media

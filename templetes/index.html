@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<!-- Main Post Section Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-lg-7 col-xl-8 mt-0">
+                <div class="position-relative overflow-hidden rounded">
+                    <img src="media/{{mainpost.image}}" class="img-fluid rounded img-zoomin w-100" alt="" loading="lazy">
+                    <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
+                        <a href="#" class="text-white me-3 link-hover" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"><i class="fa fa-clock"></i> {{mainpost.reading_time}} Minute</a>
+                        <a href="#" class="text-white me-3 link-hover" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"><i class="fa fa-eye"></i> {{mainpost.views}} Views</a>
+                        <a href="#" class="text-white me-3 link-hover" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"><i class="fa fa-comment-dots"></i> 05 Comment</a>
+                        <a href="#" class="text-white link-hover" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);"><i class="fa fa-arrow-up"></i> 1.5k Share</a>
+                    </div>
+                </div>
+                <div class="border-bottom py-3">
+                    <a href="{% url 'post_detail' category_slug=mainpost.category.url post_slug=mainpost.url %}" class="display-4 text-dark mb-0 link-hover">{{mainpost}}</a>
+                </div>
+                <p class="mt-3 mb-4">{{mainpost.content |truncatewords_html:20 | safe}}
+                </p>
+                <div class="bg-light p-4 rounded">
+                    <div class="news-2">
+                        <h3 class="mb-4">Top Story</h3>
+                    </div>
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-6">
+                            <div class="rounded overflow-hidden">
+                                <img src="media/{{trending.image}}" class="img-fluid rounded img-zoomin w-100" alt="" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex flex-column">
+                                <a href="{% url 'post_detail' category_slug=trending.category.url post_slug=trending.url %}" class="h3">{{trending.title}}</a>
+                                <p class="mb-0 fs-5"><i class="fa fa-clock">  {{trending.reading_time}} Minute read</i> </p>
+                                <p class="mb-0 fs-5"><i class="fa fa-eye"> {{trending.views}} Views</i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-4">
+               <div class="bg-light rounded p-4 pt-0">
+                    <div class="row g-4">
+                        {% if latest_posts_by_category %}
+                        <!-- the bif right one! -->
+                        <div class="col-12">
+                            <div class="rounded overflow-hidden">
+                                <img src="media/{{latest_posts_by_category.0.image}}" class="img-fluid rounded img-zoomin w-100" alt="" loading="lazy">
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="d-flex flex-column">
+                                <a href="{% url 'post_detail' category_slug=latest_posts_by_category.0.category.url post_slug=latest_posts_by_category.0.url %}" class="h4 mb-2">{{latest_posts_by_category.0.title}}</a>
+                                <p class="mt-3 mb-4">{{latest_posts_by_category.0.content |truncatewords:10 | safe}} </p>
+                                
+                                <p class="fs-5 mb-0"><i class="fa fa-clock"> {{latest_posts_by_category.0.reading_time}} Minute read</i> </p>
+                                <p class="fs-5 mb-0"><i class="fa fa-eye"> {{latest_posts_by_category.0.views}} Views</i></p>
+                            </div>
+                        </div>
+                        {% else %}
+                            <p>No big card content available</p>
+                        {% endif %}
+                        {% for latest_posts_by_category in latest_posts_by_category|slice:"1:" %}
+                        <div class="col-12">
+                            <div class="row g-4 align-items-center">
+                                <div class="col-5">
+                                    <div class="overflow-hidden rounded">
+                                        <img src="media/{{latest_posts_by_category.image}}" class="img-zoomin img-fluid rounded w-100" alt="" loading="lazy">
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="features-content d-flex flex-column">
+                                        <a href="{% url 'post_detail' category_slug=latest_posts_by_category.category.url post_slug=latest_posts_by_category.url %}" class="h6">{{latest_posts_by_category.title}}</a>
+                                        <small><i class="fa fa-clock"> {{latest_posts_by_category.reading_time}} Minute read</i> </small>
+                                        <small><i class="fa fa-eye"> {{latest_posts_by_category.views}} Views</i></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Post Section End -->
+
+
+
+
+<!-- Latest News Start -->
+<div class="container-fluid latest-news py-5">
+    <div class="container py-5">
+        <h2 class="mb-4">Latest News</h2>
+        <div class="latest-news-carousel owl-carousel">
+            {% for post in posts %}
+            <div class="latest-news-item">
+                <div class="bg-light rounded">
+                    <div class="rounded-top overflow-hidden">
+                        <img src="media/{{post.image}}" class="img-zoomin img-fluid rounded-top w-100"  alt="Responsive image" loading="lazy">
+                    </div>
+                    <div class="d-flex flex-column p-4">
+                        <a href="{% url 'post_detail' category_slug=post.category.url post_slug=post.url %}" class="h4">{{post.title}}</a>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'author_posts' author_name=post.author %}" class="small text-body link-hover">by {{post.author}}</a>
+                            <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{post.pub_date|date:"b d, Y"}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Latest News End -->
+<ul>
+    {% for category in top_categories %}
+      <li>{{ category.title }} - Total Views: {{ category.total_views }}</li>
+    {% endfor %}
+  </ul>
+
+<!-- Most Populer News Start -->
+<div class="container-fluid populer-news py-5">
+    <div class="container py-5">
+        <div class="tab-class mb-4">
+            <div class="row g-4">
+                <div class="col-lg-8 col-xl-9">
+                    <div class="d-flex flex-column flex-md-row justify-content-md-between border-bottom mb-4">
+                        <h1 class="mb-4">What’s New</h1>
+                        <ul class="nav nav-pills d-inline-flex text-center">
+                            {% for category in top_categories %}
+                                <li class="nav-item mb-3">
+                                    <a class="d-flex py-2 bg-light rounded-pill {% if forloop.first %}active{% endif %} me-2" data-bs-toggle="pill" href="#tab-{{ forloop.counter }}">
+                                        <span class="text-dark" style="width: 100px;">{{ category.title }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            
+                        </ul>
+                    </div>
+                    <div class="tab-content mb-4">
+                        {% for category in top_categories %}
+                        <div id="tab-{{ forloop.counter }}" class="tab-pane fade show p-0 {% if forloop.first %}active{% endif %}">
+                            <div class="row g-4">
+                                {% for post in category.blogpost_set.all|slice:":7" %}
+                                    {% if forloop.first %}
+                                <div class="col-lg-8">
+                                    <div class="position-relative rounded overflow-hidden">
+                                        <img src="/media/{{post.image}}" class="img-zoomin img-fluid rounded w-100" alt="" loading="lazy">
+                                        <div class="position-absolute text-white px-4 py-2 bg-primary rounded" style="top: 20px; right: 20px;">                                              
+                                            {{category.title}}
+                                        </div>
+                                    </div>
+                                    <div class="my-4">
+                                        <a href="{% url 'post_detail' category_slug=post.category.url post_slug=post.url %}" class="h4">{{post.title}}</a>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="text-dark link-hover me-3"><i class="fa fa-clock"></i> {{post.reading_time}} minute read</a>
+                                        <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> {{post.views}} Views</a>
+                                        <a href="#" class="text-dark link-hover me-3"><i class="fa fa-comment-dots"></i> 05 Comment</a>
+                                        <a href="#" class="text-dark link-hover"><i class="fa fa-arrow-up"></i> 1.5k Share</a>
+                                    </div>
+                                    <p class="my-4">{{post.content |truncatewords_html:20| safe}}
+                                    </p>
+                                </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="col-lg-4">
+                                    <div class="row g-4">
+                                        {% for post in category.blogpost_set.all|slice:"1:" %}
+                                        <div class="col-12">
+                                            <div class="row g-4 align-items-center">
+                                                <div class="col-5">
+                                                    <div class="overflow-hidden rounded">
+                                                        <img src="media/{{post.image}}" class="img-zoomin img-fluid rounded w-100" alt="" loading="lazy">
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">
+                                                    <div class="features-content d-flex flex-column">
+                                                        <p class="text-uppercase mb-2">{{category.title}}</p>
+                                                        <a href="{% url 'post_detail' category_slug=post.category.url post_slug=post.url %}" class="h6">{{post.title |truncatechars_html:35 | safe}}</a>
+                                                        <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{post.pub_date|date:"b d, Y"}}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    
+                    <div class="border-bottom mb-4">
+                        <h2 class="my-4">Most Views News</h2>
+                    </div>
+                    
+                    <div class="whats-carousel owl-carousel">
+                        {% for post in most_viewed_posts|slice:":10" %}
+                        <div class="{% if forloop.first %}latest-{% endif %}news-item">
+                            <div class="bg-light rounded">
+                                <div class="rounded-top overflow-hidden">
+                                    <img src="{{post.image.url}}" class="img-zoomin img-fluid rounded-top w-100" alt="" loading="lazy">
+                                </div>
+                                <div class="d-flex flex-column p-4">
+                                    <a href="{% url 'post_detail' category_slug=post.category.url post_slug=post.url %}" class="h4">{{post.title}}</a>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{% url 'author_posts' author_name=post.author %}" class="small text-body link-hover">by {{post.author}}</a>
+                                        <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{post.pub_date|date:"b d, Y"}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-xl-3">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="p-3 rounded border">
+
+                                <h4 class="my-4">Popular News</h4>
+                                <div class="row g-4">
+                                    {% for post in most_viewed_posts|slice:":4" %}
+                                    <div class="col-12">
+                                        <div class="row g-4 align-items-center features-item">
+                                            <div class="col-4">
+                                                <div class="rounded-circle position-relative">
+                                                    <div class="overflow-hidden rounded-circle">
+                                                        <img src="/media/{{post.image}}" class="img-zoomin img-fluid rounded-circle w-100" alt="" loading="lazy">
+                                                    </div>
+                                                    <span class="rounded-circle border border-2 border-white bg-primary btn-sm-square text-white position-absolute" style="top: 10%; right: -10px;">{{post.reading_time}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="features-content d-flex flex-column">
+                                                    <p class="text-uppercase mb-2">{{post.category}}</p>
+                                                    <a href="{% url 'post_detail' category_slug=post.category.url post_slug=post.url %}" class="h6">
+                                                        {{post.title}}
+                                                    </a>
+                                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i>{{post.pub_date|date:"b d, Y"}}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="col-lg-12">
+                                        <a href="{% url 'popular_news' %}" class="link-hover btn border border-primary rounded-pill text-dark w-100 py-3 mb-4">View More</a>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="border-bottom my-3 pb-3">
+                                            <h4 class="mb-0">Trending Tags</h4>
+                                        </div>
+                                        <ul class="nav nav-pills d-inline-flex text-center mb-4">
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Lifestyle</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Sports</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Politics</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Magazine</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Game</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Movie</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Travel</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">World</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="border-bottom my-3 pb-3">
+                                            <h4 class="mb-0">Trending Categories</h4>
+                                        </div>
+                                        <ul class="nav nav-pills d-inline-flex text-center mb-4">
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Lifestyle</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Sports</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Politics</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Magazine</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Game</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Movie</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">Travel</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mb-3">
+                                                <a class="d-flex py-2 bg-light rounded-pill me-2" href="#">
+                                                    <span class="text-dark link-hover" style="width: 90px;">World</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Most Populer News End -->
+
+
+{% endblock %}
